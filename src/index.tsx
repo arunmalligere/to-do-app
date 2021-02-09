@@ -4,9 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import BaseStyles, { theme } from './styles';
+import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
+import {
+  StylesProvider as MuiStylesProvider,
+  ThemeProvider as MuiThemeProvider,
+} from '@material-ui/core/styles';
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BaseStyles />
+    <MuiThemeProvider theme={theme}>
+      <MuiStylesProvider injectFirst>
+        <StyledComponentsThemeProvider theme={theme}>
+          <App />
+        </StyledComponentsThemeProvider>
+      </MuiStylesProvider>
+    </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
