@@ -1,6 +1,8 @@
 import React from 'react';
+import AppBar from '../AppBar';
 
-const LandingPage = () => {
+
+const LandingPage: React.FC = () => {
     return (
         <>
             <h2>Landing Page</h2>
