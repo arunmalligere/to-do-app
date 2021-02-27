@@ -1,10 +1,12 @@
 import React from 'react';
 
+import Container from '../../componentLibrary/Container';
+
 const CreateToDo: React.FC = () => {
     return (
-        <div>
+        <Container>
             <h3>Create To Do</h3>
-        </div>
+        </Container>
     )
 };
 
