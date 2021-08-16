@@ -37,7 +37,7 @@ const ExpandableCard: React.FC<expandableCardProps> = ({ title, subHeader, conte
             <>
                 <Fade in={!expanded}>
                     <Collapse in={!expanded}>
-                        {<div>Collapsed</div>}
+                        {title}
                     </Collapse>
                 </Fade>
                 <Fade in={expanded}>

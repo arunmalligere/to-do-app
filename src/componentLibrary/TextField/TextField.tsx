@@ -1,17 +1,17 @@
-import React, { ReactNode, memo } from 'react';
-import { InputAdornment, TextField as MuiTextField } from '@material-ui/core';
+import React, { memo } from 'react';
+import { TextField as MuiTextField } from '@material-ui/core';
 import { FormikFieldProps } from '../../types/formik';
-import { JsxAttributes } from 'typescript';
 
 type TextFieldProps = FormikFieldProps<string | number> & {
     type?: 'text' | 'number' | 'email' | 'password' | 'time';
-    trailingIcon?: ReactNode;
     InputProps?: any;
     autoFocus?: boolean;
     fullWidth?: boolean;
     multiline?: boolean;
     rows?: number;
     variant?: any;
+    placeholder?: string;
+    required: boolean;
 };
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -24,7 +24,6 @@ const TextField: React.FC<TextFieldProps> = ({
     label,
     placeholder,
     helperText = '',
-    trailingIcon,
     status,
     disabled,
     required,
@@ -58,7 +57,7 @@ const TextField: React.FC<TextFieldProps> = ({
         {...props}
         InputProps={{
             ...InputProps,
-            endAdornment: trailingIcon && <InputAdornment position="end">{trailingIcon}</InputAdornment>,
+            // endAdornment: trailingIcon && <InputAdornment position="end">{trailingIcon}</InputAdornment>,
         }}
     />
 );
@@ -69,7 +68,6 @@ export default memo(TextField, (prevProps, nextProps) => {
         touched: prevTouched,
         error: prevError,
         helperText: prevHelperText = '',
-        trailingIcon: prevTrailingIcon,
         disabled: prevDisabled,
         required: prevRequired,
     } = prevProps;
@@ -78,7 +76,6 @@ export default memo(TextField, (prevProps, nextProps) => {
         touched: nextTouched,
         error: nextError,
         helperText: nextHelperText = '',
-        trailingIcon: nextTrailingIcon,
         disabled: nextDisabled,
         required: nextRequired,
     } = nextProps;
@@ -87,7 +84,6 @@ export default memo(TextField, (prevProps, nextProps) => {
         prevTouched === nextTouched &&
         prevError === nextError &&
         prevHelperText === nextHelperText &&
-        prevTrailingIcon === nextTrailingIcon &&
         prevDisabled === nextDisabled &&
         prevRequired === nextRequired
     );

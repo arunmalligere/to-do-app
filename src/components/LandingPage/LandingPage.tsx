@@ -1,11 +1,10 @@
 import React from 'react';
-import AppBar from '../AppBar';
-
+import { Scheduler } from '../../componentLibrary'
 
 const LandingPage: React.FC = () => {
     return (
         <>
-            <h2>Landing Page</h2>
+            <Scheduler/>
         </>
     )
 };

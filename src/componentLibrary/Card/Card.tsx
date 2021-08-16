@@ -13,13 +13,14 @@ const useStyles = makeStyles({
     root: {
         width: "60%",
         margin: "auto",
-        backgroundColor: "#ECEFF0",
+        backgroundColor: "#D6EAF8",
     },
     avatar: {
         backgroundColor: red[500],
     },
     header: {
-        width: "100%",
+        width: "auto",
+        display: "flex",
     },
     title: {
         display: "flex",
@@ -48,9 +49,10 @@ type cardProps = {
 
 const Card: React.FC<cardProps> = ({ content, title, subHeader, cardAction }) => {
     const classes = useStyles();
+    console.log(`cardAction:`, cardAction)
     return (
         <div>
-            <MaterialCard className={classes.root}>
+            <MaterialCard className={classes.root} variant="outlined">
                 <CardHeader
                     className={classes.header}
                     avatar={

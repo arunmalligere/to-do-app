@@ -13,9 +13,14 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { last } from 'lodash';
+import {
+    PlaylistAdd as AddIcon,
+    Delete as DeleteIcon,
+    Save as SaveIcon,
+} from '@material-ui/icons';
 
 import { createToDoSchema, getFormFieldStatus } from '../../services/form';
-import { ExpandableCard } from '../../componentLibrary';
+import { Button, ExpandableCard } from '../../componentLibrary';
 
 type createToDoFormProps = {
     title: string;
@@ -26,15 +31,15 @@ type createToDoFormProps = {
 const useStyles = makeStyles({
     inputFields: {
         backgroundColor: "white",
-        borderBottomColor: "red",
     },
     buttonsContainer: {
-        // marginTop: "2vh",
-        // marginBottom: "2vh",
-        margin: "2vh 0vh 2vh 0vh",
+        margin: "2vh auto",
+        width: "60%",
+        display: "flex",
     },
     label: {
-        color: "#28BFF2",
+        color: "#4F2DF3",
+        fontWeight: "bold",
     }
 });
 
@@ -105,7 +110,6 @@ const CreateToDoForm: React.FC<createToDoFormProps> = ({ title, subHeader, handl
                                     const { push, remove, form } = fieldArrayProps;
                                     const { values } = form;
                                     const { createToDo } = values;
-                                    console.log('createToDo', createToDo)
                                     const formContent: JSX.Element = createToDo.map((
                                         toDo: any,
                                         index: number,
@@ -113,7 +117,7 @@ const CreateToDoForm: React.FC<createToDoFormProps> = ({ title, subHeader, handl
                                     ) => {
                                         const formItem = (
                                             <div key={index}>
-                                                <Grid container item xs={12} spacing={3}>
+                                                <Grid container item xs={12} spacing={3} style={{ margin: "auto" }}>
                                                     <Grid item xs={12}>
                                                         <Field
                                                             name={`createToDo[${index}].title`}
@@ -131,7 +135,7 @@ const CreateToDoForm: React.FC<createToDoFormProps> = ({ title, subHeader, handl
                                                 </Grid>
                                             </div>
                                         );
-                                        console.log('index', index)
+                                        console.log('formikProps.isValid: ', formikProps.isValid)
                                         return (
                                             <>
                                                 <ExpandableCard
@@ -142,28 +146,52 @@ const CreateToDoForm: React.FC<createToDoFormProps> = ({ title, subHeader, handl
                                                 <div className={classes.buttonsContainer}>
                                                     <Grid container>
                                                         <Grid item xs={6}>
-                                                            {(createToDoArray.length <= 2) && (<button
-                                                                type='button'
-                                                                onClick={() => push('')}
-                                                                disabled={!formikProps.isValid}
+                                                            <Grid
+                                                                container
+                                                                justify="flex-start"
                                                             >
-                                                                Add
-                                                            </button>)}
+                                                                {
+                                                                    createToDoArray.length <= 2 &&
+                                                                    (
+                                                                        <Button
+                                                                            filled
+                                                                        type='button'
+                                                                        onClick={() => push('')}
+                                                                            disabled={!formikProps.isValid || !(!!Object.keys(formikProps.touched).length)}
+                                                                            style={{ marginRight: '12px' }}
+                                                                    >
+                                                                            <AddIcon style={{ marginRight: '12px' }} />
+                                                                        Add To Do
+                                                                        </Button>)}
                                                             {(createToDoArray.length > 1 && index > 0) && (
-                                                                <button type='button' onClick={() => remove(index)}>
-                                                                    Remove
-                                                                </button>
-                                                            )}
+                                                                    <Button
+                                                                        filled
+                                                                        type='button'
+                                                                        onClick={() => remove(index)}
+                                                                    >
+                                                                        <DeleteIcon style={{ marginRight: '12px' }} />
+                                                                        Remove To Do
+                                                                    </Button>
+                                                                )}
+                                                            </Grid>
                                                         </Grid>
                                                         <Grid item xs={6}>
-                                                            {((createToDoArray.length - 1) === index) &&
-                                                                (<button
-                                                                    type='submit'
-                                                                    disabled={!formikProps.isValid || formikProps.isSubmitting}
-                                                                >
-                                                                    Submit
-                                                                </button>)
+                                                            <Grid container justify="flex-end">
+                                                                {(
+                                                                    (createToDoArray.length - 1) === index)
+                                                                    &&
+                                                                    (
+                                                                        <Button
+                                                                            filled
+                                                                            type='submit'
+                                                                            disabled={!formikProps.isValid || formikProps.isSubmitting}
+                                                                    >
+                                                                        <SaveIcon style={{ marginRight: '12px' }} />
+                                                                        Save To Do
+                                                                    </Button>
+                                                                )
                                                             }
+                                                            </Grid>
                                                         </Grid>
                                                     </Grid>
                                                 </div>
